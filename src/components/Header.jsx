@@ -2,6 +2,7 @@ import React from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "../utils/appSlice";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -9,19 +10,21 @@ const Header = () => {
     dispatch(toggleSidebar());
   };
   return (
-    <div className="grid grid-flow-col p-5 m-2 shadow">
+    <div className="grid grid-flow-col p-3 m-2 shadow">
       <div className="flex col-span-1">
         <img
           onClick={handleMenuClick}
           alt="menu"
-          className="h-8 cursor-pointer"
+          className="h-7 cursor-pointer"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ByNBMPtR-zoe5ktzRUPfwoAvTC26ZwH66FTiU8ENgVRx6TywoA&s=10&ec=72940545"
         />
-        <img
-          alt="yt-logo"
-          className="h-8"
-          src="https://www.cdnlogo.com/logos/y/73/youtube.svg"
-        />
+        <Link to={"/"}>
+          <img
+            alt="yt-logo"
+            className="h-6.5 mx-5"
+            src="https://www.cdnlogo.com/logos/y/73/youtube.svg"
+          />
+        </Link>
       </div>
       <div className="col-span-10 flex">
         <input

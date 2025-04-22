@@ -10,7 +10,6 @@ const useGetVideos = () => {
     const data = await fetch(YOUTUBE_MOST_POPULAR_API);
     const json = await data.json();
     dispatch(addVideosInfo(json.items));
-    console.log(json.items);
   };
 
   useEffect(() => {
