@@ -11,6 +11,8 @@ const Header = () => {
     dispatch(toggleSidebar());
   };
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   //debouncing API call made after every 200ms
   // - make an API call after each key press
@@ -27,7 +29,7 @@ const Header = () => {
   const fetchSearchSuggestions = async () => {
     const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
     const json = await data.json();
-    console.log(json[1]);
+    setSearchSuggestions(json[1]);
   };
   return (
     <div className="grid grid-flow-col p-3 m-2 shadow">
@@ -46,16 +48,34 @@ const Header = () => {
           />
         </Link>
       </div>
-      <div className="col-span-10 flex">
-        <input
-          type="text"
-          className="px-4 py-1 placeholder-gray-400 text-sm w-1/2 border-gray-400 border rounded-l-full"
-          placeholder="Search"
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button className="text-lg border-gray-400 border rounded-r-full px-2 bg-gray-100">
-          <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
-        </button>
+      <div className="col-span-10 relative">
+        <div className=" flex">
+          <input
+            type="text"
+            className="px-4 py-1 placeholder-gray-400 text-sm w-1/2 border-gray-400 border rounded-l-full"
+            placeholder="Search"
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onBlur={() => setShowSuggestions(false)}
+            onFocus={() => setShowSuggestions(true)}
+          />
+          <button className="text-lg border-gray-400 border rounded-r-full bg-gray-100">
+            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+          </button>
+        </div>
+        {showSuggestions && (
+          <div className="absolute bg-white z-10 w-110 p-2 pt-4 rounded-lg border border-gray-200 shadow-2xl">
+            <ul>
+              {searchSuggestions.map((suggestion) => (
+                <li className="text-sm p-1 hover:bg-gray-100" key={suggestion}>
+                  <div className="flex">
+                    <MagnifyingGlassIcon className="h-4 w-4 text-gray-400 mr-2 mt-1" />
+                    {suggestion}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <div className="col-span-1">
         <img
