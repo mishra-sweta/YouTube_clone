@@ -14,7 +14,6 @@ const useGetChannelDetails = (channelId) => {
         );
         const json = await data.json();
         const channelData = json?.items;
-        console.log(channelData);
 
         setDetails(channelData);
       } catch (err) {

@@ -21,7 +21,7 @@ const Watchpage = () => {
 
   if (!videoDetails) return <div className="p-4">Loading video details...</div>;
 
-  const { snippet } = videoDetails;
+  const { snippet, statistics } = videoDetails;
   const { title, channelTitle } = snippet;
   const subscribers = channelDetail?.[0]?.statistics?.subscriberCount;
 
@@ -44,19 +44,35 @@ const Watchpage = () => {
         <h1 className="text-xl font-bold mt-4">{title}</h1>
 
         {/* Channel Info */}
-        <div className="flex items-center mt-4">
-          <img
-            alt="Channel Logo"
-            src={channelDetail?.[0]?.snippet?.thumbnails?.default?.url}
-            className="w-12 h-12 rounded-full mr-4"
-          />
-          <div>
-            <p className="font-medium text-base">{channelTitle}</p>
-            <p className="text-sm text-gray-600">
-              {subscribers
-                ? `${Math.floor(subscribers / 1000000)}M subscribers`
-                : ""}
-            </p>
+        <div className="flex items-center mt-4 w-full  justify-between">
+          <div className="flex">
+            <img
+              alt="Channel Logo"
+              src={channelDetail?.[0]?.snippet?.thumbnails?.default?.url}
+              className="w-12 h-12 rounded-full mr-4"
+            />
+            <div>
+              <p className="font-medium text-base">{channelTitle}</p>
+              <p className="text-sm text-gray-600">
+                {subscribers
+                  ? `${Math.floor(subscribers / 1000000)}M subscribers`
+                  : ""}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 ">
+            <button className="rounded-full bg-gray-300 text-sm px-5 py-2">
+              Subscribe
+            </button>
+
+            <div className="flex">
+              <button className="rounded-l-full bg-gray-300 text-sm px-5 py-2">
+                {Math.floor(statistics.likeCount / 1000)}K Likes
+              </button>
+              <button className="rounded-r-full bg-gray-300 text-sm px-5 py-2 border-l border-gray-500">
+                Dislike
+              </button>
+            </div>
           </div>
         </div>
       </div>
