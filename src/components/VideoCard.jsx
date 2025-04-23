@@ -2,17 +2,17 @@ import React from "react";
 import useGetChannelLogo from "../utils/useGetChannelLogo";
 import { Link } from "react-router-dom";
 
-const VideoCard = ({ info }) => {
+const VideoCard = ({ info, index }) => {
   const { thumbnails, title, channelTitle, channelId } = info.snippet;
-  const logoUrl = useGetChannelLogo(channelId);
+  const channelDetail = useGetChannelLogo(channelId);
   return (
-    <Link to={"/watch?v=" + info.id}>
+    <Link to={"/watch?v=" + info.id + "&index=" + index}>
       <div className="w-80 m-3 shadow-xl p-2 rounded">
         <img className="rounded" alt="thumbmail" src={thumbnails.medium.url} />
         <div className="flex">
           <img
             alt="Channel Logo"
-            src={logoUrl}
+            src={channelDetail?.[0]?.snippet?.thumbnails?.default?.url}
             className="w-8 h-8 m-2 mr-4 rounded-full"
           />
 

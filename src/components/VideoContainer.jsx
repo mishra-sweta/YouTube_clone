@@ -2,16 +2,14 @@ import React from "react";
 import { YOUTUBE_MOST_POPULAR_API } from "../utils/constants";
 import VideoCard from "./VideoCard";
 import { useSelector } from "react-redux";
-import useGetVideos from "../utils/useGetVideos";
 
 const VideoContainer = () => {
-  useGetVideos();
-  const videos = useSelector((store) => store.videos.videos);
+  const videos = useSelector((store) => store.videos.videosArray);
 
   return (
     <div className="flex flex-wrap m-2">
-      {videos.map((video) => (
-        <VideoCard info={video} key={video.id} />
+      {videos.map((video, index) => (
+        <VideoCard info={video} key={video.id} index={index} />
       ))}
     </div>
   );

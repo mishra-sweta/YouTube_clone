@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { YOUTUBE_CHANNEL_API } from "./constants";
 
-const useGetChannelLogo = (channelId) => {
-  const [logoUrl, setLogoUrl] = useState(null);
+const useGetChannelDetails = (channelId) => {
+  const [details, setDetails] = useState(null);
 
   useEffect(() => {
     const getChannelData = async () => {
@@ -13,8 +13,10 @@ const useGetChannelLogo = (channelId) => {
           }`
         );
         const json = await data.json();
-        const url = json?.items?.[0]?.snippet?.thumbnails?.default?.url;
-        setLogoUrl(url);
+        const channelData = json?.items;
+        console.log(channelData);
+
+        setDetails(channelData);
       } catch (err) {
         console.error("Error fetching channel logo", err);
       }
@@ -25,7 +27,7 @@ const useGetChannelLogo = (channelId) => {
     }
   }, [channelId]);
 
-  return logoUrl;
+  return details;
 };
 
-export default useGetChannelLogo;
+export default useGetChannelDetails;
