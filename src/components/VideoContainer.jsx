@@ -5,6 +5,7 @@ import { openSidebar } from "../utils/appSlice";
 
 const VideoContainer = () => {
   const videos = useSelector((store) => store.videos.videosArray);
+  const keywordVideos = useSelector((store) => store.videos.keywordVideos);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(openSidebar());

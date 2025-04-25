@@ -5,22 +5,25 @@ import { toggleSidebar } from "../utils/appSlice";
 import { Link } from "react-router-dom";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cachedResults } from "../utils/searchSlice";
+import useGetVideosByKeyword from "../utils/useGetVideosByKeyword";
 
 const Header = () => {
   const dispatch = useDispatch();
   const handleMenuClick = () => {
     dispatch(toggleSidebar());
   };
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [keyword, setKeyword] = useState(null);
 
   const cacheData = useSelector((store) => store.search);
 
-  //debouncing API call made after every 200ms
-  // - make an API call after each key press
-  // - but if the diff btw two key is <200ms decline the API call
+  // Use the custom hook here, passing keyword directly
+  useGetVideosByKeyword(keyword);
 
+  // Debouncing API call made after every 200ms
   useEffect(() => {
     const timer = setTimeout(() => {
       if (cacheData[searchQuery]) {
@@ -46,6 +49,7 @@ const Header = () => {
       })
     );
   };
+
   return (
     <div className="grid grid-flow-col p-3 m-2 shadow">
       <div className="flex col-span-1">
@@ -69,8 +73,8 @@ const Header = () => {
             type="text"
             className="px-4 py-1 placeholder-gray-400 text-sm w-1/2 border-gray-400 border rounded-l-full"
             placeholder="Search"
+            value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onBlur={() => setShowSuggestions(false)}
             onFocus={() => setShowSuggestions(true)}
           />
           <button className="text-lg border-gray-400 border rounded-r-full bg-gray-100">
@@ -81,7 +85,15 @@ const Header = () => {
           <div className="absolute bg-white z-10 w-110 p-2 pt-4 rounded-lg border border-gray-200 shadow-2xl">
             <ul>
               {searchSuggestions.map((suggestion) => (
-                <li className="text-sm p-1 hover:bg-gray-100" key={suggestion}>
+                <li
+                  className="text-sm p-1 hover:bg-gray-100"
+                  key={suggestion}
+                  onClick={() => {
+                    setKeyword(suggestion);
+                    setSearchQuery(suggestion);
+                    setShowSuggestions(false);
+                  }}
+                >
                   <div className="flex">
                     <MagnifyingGlassIcon className="h-4 w-4 text-gray-400 mr-2 mt-1" />
                     {suggestion}
