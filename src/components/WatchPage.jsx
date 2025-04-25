@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { closeSidebar } from "../utils/appSlice";
 import useGetChannelLogo from "../utils/useGetChannelLogo";
+import CommentContainer from "./CommentContainer";
 
 const Watchpage = () => {
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ const Watchpage = () => {
             </div>
           </div>
         </div>
+        <CommentContainer />
       </div>
 
       {/* Right Side - Suggestions */}

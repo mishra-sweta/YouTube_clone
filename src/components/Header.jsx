@@ -74,7 +74,7 @@ const Header = () => {
             onFocus={() => setShowSuggestions(true)}
           />
           <button className="text-lg border-gray-400 border rounded-r-full bg-gray-100">
-            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+            <MagnifyingGlassIcon className="h-5 w-5 mx-2 text-gray-400" />
           </button>
         </div>
         {showSuggestions && (
