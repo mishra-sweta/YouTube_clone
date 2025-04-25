@@ -30,7 +30,7 @@ const Watchpage = () => {
       {/* Left Side - Video and Info */}
       <div className="col-span-7 ml-20">
         {/* 16:9 Video Container */}
-        <div className="relative w-full pb-[56.25%] rounded-xl overflow-hidden ">
+        <div className="relative w-[640px] h-[360px] rounded-xl overflow-hidden ">
           <iframe
             className="absolute top-0 left-0 w-full h-full"
             src={`https://www.youtube.com/embed/${videoId}`}
