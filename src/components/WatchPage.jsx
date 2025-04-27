@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { closeSidebar } from "../utils/appSlice";
 import useGetChannelLogo from "../utils/useGetChannelLogo";
 import CommentContainer from "./CommentContainer";
+import LiveChat from "./LiveChat";
 
 const Watchpage = () => {
   const dispatch = useDispatch();
@@ -83,8 +84,7 @@ const Watchpage = () => {
 
       {/* Right Side - Suggestions */}
       <div className="col-span-5">
-        <h2 className="text-lg font-semibold mb-2">Suggestions</h2>
-        {/* Add suggestion cards here */}
+        <LiveChat />
       </div>
     </div>
   );
