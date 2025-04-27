@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSidebar } from "../utils/appSlice";
+import { toggleSearchResults, toggleSidebar } from "../utils/appSlice";
 import { Link } from "react-router-dom";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cachedResults } from "../utils/searchSlice";
@@ -50,6 +50,13 @@ const Header = () => {
     );
   };
 
+  const handleSuggestionClick = () => {
+    dispatch(toggleSearchResults());
+  };
+  const handleHomeClick = () => {
+    dispatch(toggleSearchResults());
+  };
+
   return (
     <div className="grid grid-flow-col p-3 m-2 shadow">
       <div className="flex col-span-1">
@@ -64,6 +71,7 @@ const Header = () => {
             alt="yt-logo"
             className="h-6.5 mx-5"
             src="https://www.cdnlogo.com/logos/y/73/youtube.svg"
+            onClick={handleHomeClick}
           />
         </Link>
       </div>
@@ -82,7 +90,7 @@ const Header = () => {
           </button>
         </div>
         {showSuggestions && (
-          <div className="absolute bg-white z-10 w-110 p-2 pt-4 rounded-lg border border-gray-200 shadow-2xl">
+          <div className="absolute bg-white z-10 w-110 p-2 pt-4 rounded-lg border border-gray-200 shadow-2xl cursor-pointer">
             <ul>
               {searchSuggestions.map((suggestion) => (
                 <li
@@ -92,6 +100,7 @@ const Header = () => {
                     setKeyword(suggestion);
                     setSearchQuery(suggestion);
                     setShowSuggestions(false);
+                    handleSuggestionClick();
                   }}
                 >
                   <div className="flex">

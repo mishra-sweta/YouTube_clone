@@ -4,6 +4,7 @@ const appSlice = createSlice({
   name: "app",
   initialState: {
     sidebar: true,
+    searchResults: false,
   },
   reducers: {
     toggleSidebar: (state) => {
@@ -15,8 +16,12 @@ const appSlice = createSlice({
     openSidebar: (state) => {
       state.sidebar = true;
     },
+    toggleSearchResults: (state) => {
+      state.searchResults = !state.searchResults;
+    },
   },
 });
 
 export default appSlice.reducer;
-export const { toggleSidebar, closeSidebar, openSidebar } = appSlice.actions;
+export const { toggleSidebar, closeSidebar, openSidebar, toggleSearchResults } =
+  appSlice.actions;

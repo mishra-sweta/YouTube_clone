@@ -9,13 +9,15 @@ const Watchpage = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
-
+  const searchResults = useSelector((store) => store.app.searchResults);
   useEffect(() => {
     dispatch(closeSidebar());
   }, [dispatch]);
 
   const videoDetails = useSelector((store) =>
-    store.videos.videosArray.find((v) => v.id === videoId)
+    searchResults
+      ? store?.videos?.keywordVideos.find((v) => v.id.videoId === videoId)
+      : store.videos.videosArray.find((v) => v.id === videoId)
   );
 
   const channelDetail = useGetChannelLogo(videoDetails?.snippet?.channelId);
@@ -68,7 +70,7 @@ const Watchpage = () => {
 
             <div className="flex">
               <button className="rounded-l-full bg-gray-300 text-sm px-5 py-2">
-                {Math.floor(statistics.likeCount / 1000)}K Likes
+                {Math.floor(statistics?.likeCount / 1000)}K Likes
               </button>
               <button className="rounded-r-full bg-gray-300 text-sm px-5 py-2 border-l border-gray-500">
                 Dislike

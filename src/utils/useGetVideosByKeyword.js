@@ -16,6 +16,7 @@ const useGetVideosByKeyword = (keyword) => {
         }`
       );
       const json = await data.json();
+
       dispatch(addKeywordVideos(json.items));
     };
 
