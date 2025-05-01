@@ -11,3 +11,4 @@ Debouncing with 200ms
 - rendered keyword videos when searched
 - live chat functionality
 - n-nested comment section
+- used API Polling for live chat 
